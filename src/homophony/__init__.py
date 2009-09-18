@@ -18,9 +18,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+import sys
 import unittest
 from django.conf import settings
 from django.core.handlers.wsgi import WSGIHandler
+from django.core.signals import got_request_exception
 import django.test._doctest as doctest
 import wsgi_intercept
 import wsgi_intercept.mechanize_intercept
@@ -28,6 +30,26 @@ import zc.testbrowser.browser
 
 
 __all__ = ['Browser', 'DocFileSuite', 'BrowserTestCase']
+
+
+class LoudWSGIHandler(WSGIHandler):
+    """Extension of WSGIHandler that reraises exceptions without displaying
+    the useless Django error page."""
+
+    def __init__(self, *args, **kwargs):
+        super(WSGIHandlerStoreExc, self).__init__(*args, **kwargs)
+
+    def __call__(self, environ, start_response):
+        self._stored = None
+        got_request_exception.connect(self.store_exc_info)
+        try:
+            return super(WSGIHandlerStoreExc, self).__call__(environ, start_response)
+        finally:
+            if self._stored is not None:
+                raise self._stored
+
+    def store_exc_info(self, **kwargs):
+        self._stored = sys.exc_info()
 
 
 class Browser(zc.testbrowser.browser.Browser):
@@ -68,7 +90,7 @@ def DocFileSuite(*paths, **kwargs):
 def setUpBrowser(*args):
     settings.DEBUG = settings.TEMPLATE_DEBUG = True
     wsgi_intercept.urllib2_intercept.install_opener()
-    wsgi_intercept.add_wsgi_intercept('testserver', 80, WSGIHandler)
+    wsgi_intercept.add_wsgi_intercept('testserver', 80, LoudWSGIHandler)
     if 'django.contrib.sites' in settings.INSTALLED_APPS:
         from django.contrib.sites.models import Site
         Site.objects.get_current().domain = 'testserver'
