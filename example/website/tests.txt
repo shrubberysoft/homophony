@@ -1,0 +1,25 @@
+Example website
+---------------
+
+The website welcomes its visitors with a form::
+
+    >>> browser = Browser()
+    >>> browser.open('http://testserver')
+    >>> browser.getControl(name='first_name').value = 'Jim'
+    >>> browser.getForm().submit()
+    
+When a name is given, it echoes back with an informal greeting::
+    
+    >>> browser.title
+    'Hello Jim'
+    >>> print browser.contents
+    <!DOCTYPE html>
+    ...
+    <h1>Hello Jim</h1>
+    ...
+    
+And there is a link to go back::
+    
+    >>> browser.getLink('Go back').click()
+    >>> browser.title
+    'Home'
