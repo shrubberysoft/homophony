@@ -18,10 +18,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-import doctest
 import unittest
 from django.conf import settings
 from django.core.handlers.wsgi import WSGIHandler
+import django.test._doctest as doctest
 import wsgi_intercept
 import wsgi_intercept.mechanize_intercept
 import zc.testbrowser.browser
@@ -55,6 +55,9 @@ def DocFileSuite(*paths, **kwargs):
     kwargs.setdefault('setUp', setUpBrowser)
     kwargs.setdefault('tearDown', tearDownBrowser)
     kwargs.setdefault('globs', {}).update(Browser=Browser)
+    kwargs.setdefault('optionflags', doctest.NORMALIZE_WHITESPACE |
+                                     doctest.REPORT_ONLY_FIRST_FAILURE |
+                                     doctest.ELLIPSIS)
     if 'package' not in kwargs:
         # Resolve relative names based on the caller's module
         kwargs['package'] = doctest._normalize_module(None)
