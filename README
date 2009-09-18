@@ -30,7 +30,6 @@ Use this as a starting point for ``foobar/tests.py``::
 
     from homophony import BrowserTestCase, Browser
 
-
     class FoobarTestCase(BrowserTestCase):
 
         def testHome(self):
@@ -53,7 +52,6 @@ If you prefer doctests over unit tests (as we do!), use the following as a base
 for ``foobar/tests.py``::
 
     from homophony import DocFileSuite
-
 
     def suite():
         return DocFileSuite('tests.txt',
