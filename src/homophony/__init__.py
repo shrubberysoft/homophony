@@ -46,7 +46,7 @@ class LoudWSGIHandler(WSGIHandler):
             return super(LoudWSGIHandler, self).__call__(environ, start_response)
         finally:
             if self._stored is not None:
-                raise self._stored
+                raise self._stored[0], self._stored[1],self._stored[2]
 
     def store_exc_info(self, **kwargs):
         self._stored = sys.exc_info()
