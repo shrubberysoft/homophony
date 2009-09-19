@@ -21,7 +21,7 @@
 from setuptools import setup, find_packages
 
 setup(name='homophony',
-    version='0.1',
+    version='0.1.1',
     description='Django and zc.testbrowser integration',
     long_description=open('README').read(),
     author='Shrubbery Software',
