@@ -6,5 +6,5 @@ def home(request):
 
 
 def say_hello(request):
-    first_name = request.POST.get('first_name')
+    first_name = request.POST['first_name']
     return render_to_response('hello.html', { 'first_name': first_name })

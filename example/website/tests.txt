@@ -23,3 +23,10 @@ And there is a link to go back::
     >>> browser.getLink('Go back').click()
     >>> browser.title
     'Home'
+
+But this is what happens if we do not submit a name:
+
+    >>> browser.open('hello')
+    Traceback (most recent call last):
+    ...
+    MultiValueDictKeyError: "Key 'first_name' not found in <QueryDict: {}>"
