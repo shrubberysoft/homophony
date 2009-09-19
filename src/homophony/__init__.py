@@ -38,10 +38,10 @@ class LoudWSGIHandler(WSGIHandler):
 
     def __init__(self, *args, **kwargs):
         super(LoudWSGIHandler, self).__init__(*args, **kwargs)
+        got_request_exception.connect(self.store_exc_info)
 
     def __call__(self, environ, start_response):
         self._stored = None
-        got_request_exception.connect(self.store_exc_info)
         try:
             return super(LoudWSGIHandler, self).__call__(environ, start_response)
         finally:
