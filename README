@@ -110,7 +110,7 @@ run the tests::
     OK
     Destroying test database...
 
-The ``-v 2`` part is to get the list of tests printed, and is otherwise
+The ``-v 2`` parameter is there to get the list of tests printed, and is otherwise
 unnecessary.
 
 For learning purposes, try to break the tests and witness the details in the
@@ -121,9 +121,9 @@ output of the test runner.
 How does it work?
 -----------------
 
-Custom hooks are installed for ``urllib`` to pass all requests destined
-for ``http://testserver`` to an instance of ``WSGIHandler`` (which
-exposes Django application through WSGI_). The real heavy lifting is
+Custom hooks are installed for ``urllib`` to pass all requests for
+``http://testserver`` to an instance of ``WSGIHandler`` (which
+exposes Django applications through WSGI_). The real heavy lifting is
 performed by ``wsgi_intercept``.
 
 .. _WSGI: http://www.wsgi.org/
@@ -135,4 +135,4 @@ Feedback
 There is a `home page <http://github.com/shrubberysoft/homophony>`_ with
 instructions on how to access the code repository.
 
-Please send your feedback and suggestions to team@shrubberysoft.com.
+Send feedback and suggestions to team@shrubberysoft.com.
