@@ -78,7 +78,6 @@ class BrowserTestCase(unittest.TestCase):
 def DocFileSuite(*paths, **kwargs):
     """Extension of the standard DocFileSuite that sets up test browser for
     use in doctests."""
-    print doctest._normalize_module(None)
     kwargs.setdefault('setUp', setUpBrowser)
     kwargs.setdefault('tearDown', tearDownBrowser)
     kwargs.setdefault('globs', {}).update(Browser=Browser)
