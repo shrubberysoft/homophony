@@ -122,7 +122,7 @@ How does it work?
 -----------------
 
 Custom hooks are installed for ``urllib`` to pass all requests for
-``http://testserver`` to an instance of ``WSGIHandler`` (which
+``http://testserver`` to a subclass of ``WSGIHandler`` (which
 exposes Django applications through WSGI_). The real heavy lifting is
 performed by ``wsgi_intercept``.
 
