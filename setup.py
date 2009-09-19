@@ -29,5 +29,11 @@ setup(name='homophony',
     url='http://github.com/shrubberysoft/homophony',
     packages=find_packages('src'),
     package_dir={'' : 'src'},
-    install_requires=['wsgi_intercept==0.4', 'zc.testbrowser']
+    install_requires=['wsgi_intercept==0.4', 'zc.testbrowser'],
+    classifiers=[
+        'Development Status :: 4 - Beta',
+        'Framework :: Django',
+        'License :: OSI Approved :: MIT License',
+        'Topic :: Software Development :: Testing'
+    ]
 )
