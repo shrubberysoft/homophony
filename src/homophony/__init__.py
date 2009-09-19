@@ -88,7 +88,6 @@ def DocFileSuite(*paths, **kwargs):
 
 
 def setUpBrowser(*args):
-    settings.DEBUG = settings.TEMPLATE_DEBUG = True
     wsgi_intercept.urllib2_intercept.install_opener()
     wsgi_intercept.add_wsgi_intercept('testserver', 80, LoudWSGIHandler)
     if 'django.contrib.sites' in settings.INSTALLED_APPS:
