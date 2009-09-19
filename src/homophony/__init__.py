@@ -42,6 +42,11 @@ class LoudWSGIHandler(WSGIHandler):
 
     def __call__(self, environ, start_response):
         self._stored = None
+        # zc.testbrowser is serious about the robots exclusion standard,
+        # but we don't want to pass these down to Django applications.
+        if environ['PATH_INFO'] == '/robots.txt':
+            start_response("400 Not Found", [("Content-Type", "text/plain")])
+            return ["No robots.txt"]
         try:
             return super(LoudWSGIHandler, self).__call__(environ, start_response)
         finally:
