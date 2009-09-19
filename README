@@ -54,10 +54,7 @@ for ``foobar/tests.py``::
     from homophony import DocFileSuite
 
     def suite():
-        return DocFileSuite('tests.txt',
-                            optionflags=doctest.NORMALIZE_WHITESPACE |
-                                        doctest.REPORT_ONLY_FIRST_FAILURE |
-                                        doctest.ELLIPSIS)
+        return DocFileSuite('tests.txt')
 
 
 And here is an example ``foobar/tests.txt`` file::
