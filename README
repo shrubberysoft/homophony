@@ -80,7 +80,7 @@ And here is an example ``foobar/tests.txt`` file::
 
         >>> browser.getLink('Go back').click()
         >>> browser.title
-        'Homez'
+        'Home'
 
 
 Example application
