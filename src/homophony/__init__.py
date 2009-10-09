@@ -24,6 +24,7 @@ from django.conf import settings
 from django.core.handlers.wsgi import WSGIHandler
 from django.core.signals import got_request_exception
 import django.test._doctest as doctest
+from lxml import etree
 import wsgi_intercept
 import wsgi_intercept.mechanize_intercept
 import zc.testbrowser.browser
@@ -63,6 +64,15 @@ class Browser(zc.testbrowser.browser.Browser):
     def __init__(self, *args, **kwargs):
         kwargs['mech_browser'] = wsgi_intercept.mechanize_intercept.Browser()
         browser = super(Browser, self).__init__(*args, **kwargs)
+
+    def queryHTML(self, path):
+        """Run an XPath query on the HTML document and print matches."""
+        document = etree.HTML(self.contents)
+        for node in document.xpath(path):
+            if isinstance(node, basestring):
+                print node
+            else:
+                print etree.tostring(node, pretty_print=True).strip()
 
 
 class BrowserTestCase(unittest.TestCase):
