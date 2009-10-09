@@ -27,6 +27,8 @@ import django.test._doctest as doctest
 from lxml import etree
 import wsgi_intercept
 import wsgi_intercept.mechanize_intercept
+from wsgiref.simple_server import make_server
+import webbrowser
 import zc.testbrowser.browser
 
 
@@ -73,6 +75,20 @@ class Browser(zc.testbrowser.browser.Browser):
                 print node
             else:
                 print etree.tostring(node, pretty_print=True).strip()
+
+    def serve(self):
+        # Credit: Ignas Mikalajunas.
+        # TODO: This setup does not serve static files.  It would be nice to
+        # fire up a more complete publisher.
+        try:
+            print >> sys.stderr, 'Starting HTTP server...'
+            srv = make_server('localhost', 5001, LoudWSGIHandler())
+            url = self.url.replace('http://testserver', 'http://localhost:5001')
+            # We rely on the browser being slower to start than the server.
+            webbrowser.open(url)
+            srv.serve_forever()
+        except KeyboardInterrupt:
+            print >> sys.stderr, 'Stopped HTTP server.'
 
 
 class BrowserTestCase(unittest.TestCase):

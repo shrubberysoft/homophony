@@ -83,6 +83,27 @@ And here is an example ``foobar/tests.txt`` file::
         'Home'
 
 
+Helpers
+=======
+
+There are some useful helpers on the browser class.  You can run **XPath** queries
+on HTML documents using ``queryHTML``, like this:
+
+    >>> browser.queryHTML('//h1')
+    <h1>Hello Jim</h1>
+
+When debugging tests, it is sometimes handy to open a browser at a particular
+point in the test.  You can accomplish that by invoking ``serve``:
+
+    >>> browser.serve()
+
+This command will start an HTTP server and open a web browser with live access
+to your application.  Use Ctrl-C to stop the server and continue running tests.
+
+There is a known issue that the mini-webserver does not serve static files, so
+your browser may not be able to access Javascript or CSS used by your app.
+
+
 Example application
 ===================
 
