@@ -1,4 +1,4 @@
-# Copyright (c) 2009 Shrubbery Software
+# Copyright (c) 2009 Gintautas Miliauskas, Adomas Paltanavicius
 # 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -21,16 +21,15 @@
 from setuptools import setup, find_packages
 
 setup(name='homophony',
-    version='0.1.3',
+    version='0.1.4',
     description='Django and zc.testbrowser integration',
     long_description=open('README').read(),
-    author='Shrubbery Software',
-    author_email='team@shrubberysoft.com',
+    author='Gintautas Miliauskas',
+    author_email='gintautas@miliauskas.lt',
     url='http://github.com/shrubberysoft/homophony',
     packages=find_packages('src'),
     package_dir={'' : 'src'},
-    install_requires=['zc.testbrowser', 'wsgi_intercept==0.4',
-                      'wsgiref', 'lxml'],
+    install_requires=['zc.testbrowser', 'wsgi_intercept==0.4', 'wsgiref'],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Framework :: Django',

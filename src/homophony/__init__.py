@@ -1,4 +1,4 @@
-# Copyright (c) 2009 Shrubbery Software
+# Copyright (c) 2009 Gintautas Miliauskas, Adomas Paltanavicius
 # 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,10 @@ from django.conf import settings
 from django.core.handlers.wsgi import WSGIHandler
 from django.core.signals import got_request_exception
 import django.test._doctest as doctest
-from lxml import etree
+try: # soft dependency
+    from lxml import etree
+except ImportError:
+    etree = None
 import wsgi_intercept
 import wsgi_intercept.mechanize_intercept
 from wsgiref.simple_server import make_server
@@ -69,6 +72,8 @@ class Browser(zc.testbrowser.browser.Browser):
 
     def queryHTML(self, path):
         """Run an XPath query on the HTML document and print matches."""
+        if etree is None:
+            raise Exception("lxml not available")
         document = etree.HTML(self.contents)
         for node in document.xpath(path):
             if isinstance(node, basestring):
@@ -81,10 +86,11 @@ class Browser(zc.testbrowser.browser.Browser):
         # TODO: This setup does not serve static files.  It would be nice to
         # fire up a more complete publisher.
         try:
-            print >> sys.stderr, 'Starting HTTP server...'
+            print >> sys.stderr, 'Starting HTTP server on localhost:5001...'
             srv = make_server('localhost', 5001, LoudWSGIHandler())
             url = self.url.replace('http://testserver', 'http://localhost:5001')
             # We rely on the browser being slower to start than the server.
+            print >> sys.stderr, 'Opening web browser: %s' % url
             webbrowser.open(url)
             srv.serve_forever()
         except KeyboardInterrupt:
