@@ -25,7 +25,7 @@ from django.core.handlers.wsgi import WSGIHandler
 from django.core.signals import got_request_exception
 import django.test._doctest as doctest
 try:
-    from lxml import etree # soft dependency on lxml
+    from lxml import etree
 except ImportError:
     etree = None
 import wsgi_intercept
