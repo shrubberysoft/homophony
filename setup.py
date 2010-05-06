@@ -23,7 +23,7 @@ from setuptools import setup, find_packages
 setup(name='homophony',
     version='0.1.6',
     description='Django and zc.testbrowser integration',
-    long_description=open('README').read(),
+    long_description=open('README.md').read(),
     author='Gintautas Miliauskas',
     author_email='gintautas@miliauskas.lt',
     url='http://github.com/shrubberysoft/homophony',
