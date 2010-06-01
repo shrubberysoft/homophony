@@ -20,18 +20,22 @@
 
 import sys
 import unittest
+import webbrowser
+
 from django.conf import settings
 from django.core.handlers.wsgi import WSGIHandler
 from django.core.signals import got_request_exception
 import django.test._doctest as doctest
+
 try:
     from lxml import etree
 except ImportError:
     etree = None
+
+import mechanize
 import wsgi_intercept
 import wsgi_intercept.mechanize_intercept
 from wsgiref.simple_server import make_server
-import webbrowser
 import zc.testbrowser.browser
 
 
@@ -67,7 +71,10 @@ class Browser(zc.testbrowser.browser.Browser):
     """Extension of the Browser that interacts well with wsgi_intercept."""
 
     def __init__(self, *args, **kwargs):
-        kwargs['mech_browser'] = wsgi_intercept.mechanize_intercept.Browser()
+        browser = wsgi_intercept.mechanize_intercept.Browser()
+        # Persist cookies in memory
+        browser.set_cookiejar(mechanize.CookieJar())
+        kwargs['mech_browser'] = browser
         browser = super(Browser, self).__init__(*args, **kwargs)
 
     def queryHTML(self, path):

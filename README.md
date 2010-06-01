@@ -103,6 +103,9 @@ to your application.  Use Ctrl-C to stop the server and continue running tests.
 There is a known issue that the mini-webserver does not serve static files, so
 your browser may not be able to access Javascript or CSS used by your app.
 
+The browser will persist cookies accross requests, so things like user sessions
+should work.
+
 
 Example application
 ===================

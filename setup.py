@@ -21,11 +21,11 @@
 from setuptools import setup, find_packages
 
 setup(name='homophony',
-    version='0.1.6',
+    version='0.1.7',
     description='Django and zc.testbrowser integration',
     long_description=open('README.md').read(),
-    author='Gintautas Miliauskas',
-    author_email='gintautas@miliauskas.lt',
+    author='Adomas Paltanavicius',
+    author_email='adomas.paltanavicius@gmail.com',
     url='http://github.com/shrubberysoft/homophony',
     packages=find_packages('src'),
     package_dir={'' : 'src'},
