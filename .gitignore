@@ -1,6 +1,12 @@
 *.pyc
 *.pyo
+*.egg-info
 /build
 /dist
 /temp
-/src/homophony.egg-info
+/example/.installed.cfg
+/example/parts
+/example/eggs
+/example/develop-eggs
+/example/downloads
+/example/bin
